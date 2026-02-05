@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartWallet</title>
+
+  <!-- Правильный путь к CSS -->
+  <link rel="stylesheet" href="styles/main.css">
+
+  <!-- Быстро применяем светлую тему до загрузки основного JS (убирает мигание) -->
+  <script>
+    (function(){
+      try{
+        const s = JSON.parse(localStorage.getItem('sw_settings_v1')||'{}');
+        if(!s || s.theme === 'light'){
+          const root = document.documentElement;
+          root.style.setProperty('--bg','#f6f8fb');
+          root.style.setProperty('--surface','#ffffff');
+          root.style.setProperty('--fg','#0f1724');
+          root.style.setProperty('--border','#e6e9ef');
+        }
+      }catch(e){}
+    })();
+  </script>
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="brand__logo">SW</div>
+        <div>
+          <div class="brand__title">SmartWallet</div>
+          <div style="font-size:12px;color:var(--muted)">Удобный кошелёк и учёт расходов</div>
+        </div>
+      </div>
+      <div class="header__actions">
+        <a href="setting.html" class="btn btn--ghost" data-i18n="menu_settings">Настройки</a>
+        <a href="pro-nas.html" class="btn btn--ghost" data-i18n="menu_about">О нас</a>
+        <button class="btn" id="actionBtn" aria-controls="menuDrawer" aria-expanded="false" data-i18n="btn_menu">Меню</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="card">
+        <div class="balance">
+          <div class="balance__top">
+            <div>
+              <div class="balance__label" style="color:var(--muted)">Баланс аккаунта</div>
+              <div>
+                <div id="balanceDisplay" class="balance__amount">12 450 <small style="font-size:14px;color:var(--muted)">USD</small></div>
+
+                <div style="margin-top:6px; display:flex; gap:8px; align-items:center;">
+                  <input id="balanceInput" type="number" step="0.01" min="0"
+                         style="display:none; padding:6px 8px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--fg); width:140px;">
+                  <button id="editBalanceBtn" class="btn btn--ghost">Изменить</button>
+                </div>
+              </div>
+
+              <script>
+              (function(){
+                const KEY = 'sw_balance_v1';
+                const display = document.getElementById('balanceDisplay');
+                const input = document.getElementById('balanceInput');
+                const btn = document.getElementById('editBalanceBtn');
+
+                function fmt(v){
+                  // форматируем число с разделителем тысяч, без дробной части если она целая
+                  const n = Number(v) || 0;
+                  return n.toLocaleString('ru-RU', {maximumFractionDigits: 2});
+                }
+
+                function load(){
+                  const raw = localStorage.getItem(KEY);
+                  const val = raw !== null ? Number(raw) : 12450;
+                  display.innerHTML = fmt(val) + ' <small style="font-size:14px;color:var(--muted)">USD</small>';
+                  input.value = Number(val).toFixed(2).replace(/\.00$/,'');
+                }
+
+                btn.addEventListener('click', function(){
+                  if (input.style.display === 'none'){
+                    input.style.display = 'inline-block';
+                    input.focus();
+                    btn.textContent = 'Сохранить';
+                  } else {
+                    const v = parseFloat(input.value) || 0;
+                    localStorage.setItem(KEY, String(v));
+                    load();
+                    input.style.display = 'none';
+                    btn.textContent = 'Изменить';
+                  }
+                });
+
+                input.addEventListener('keydown', function(e){
+                  if (e.key === 'Enter') btn.click();
+                  if (e.key === 'Escape') { input.style.display = 'none'; btn.textContent = 'Изменить'; load(); }
+                });
+
+                // при потере фокуса — сохраняем (необязательно, но удобно)
+                input.addEventListener('blur', function(){
+                  setTimeout(function(){
+                    if (input.style.display !== 'none'){
+                      btn.click();
+                    }
+                  }, 120);
+                });
+
+                load();
+              })();
+              </script>
+            </div>
+           
+          </div>
+
+          <div class="widget-grid" aria-hidden="false">
+            <div class="widget"><div class="widget__value">0</div><div class="widget__label">Доход (мес.)</div></div>
+            <div class="widget"><div class="widget__value">0</div><div class="widget__label">Расходы (мес.)</div></div>
+            <div class="widget"><div class="widget__value">0</div><div class="widget__label">Остаток</div></div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px" class="actions">
+          <button class="btn">Новая транзакция</button>
+          <button class="btn">Категории</button>
+          <button class="btn">Отчёты</button>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h3 style="margin:0 0 10px 0">Быстрые операции</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn" id="primaryBtn">Основная</button>
+          <button class="btn">Платёж</button>
+          <button class="btn">Перевод</button>
+          <button class="btn">История</button>
+        </div>
+      </aside>
+    </section>
+
+    <section class="card">
+      <h3>Функции</h3>
+      <div class="features">
+        <div class="feature"><h3>Трекер расходов</h3><p>Отслеживайте расходы по категориям и датам</p></div>
+        <div class="feature"><h3>Импорт банков</h3><p>Подключайте карты и импортируйте платежи</p></div>
+        <div class="feature"><h3>Аналитика</h3><p>Графики, отчёты и рекомендации</p></div>
+      </div>
+    </section>
+
+    <footer class="footer">© SmartWallet — удобный учёт финансов</footer>
+  </main>
+
+  
+    <!-- Drawer: overlay + панель меню -->
+    <div id="drawerOverlay" class="drawer-overlay" hidden data-open="false"></div>
+  
+    <aside id="menuDrawer" class="drawer" aria-hidden="true" role="dialog" aria-label="Меню приложения">
+      <button id="drawerClose" class="drawer__close btn" aria-label="Закрыть меню">✕</button>
+  
+      <nav class="drawer__nav" aria-label="Основное меню">
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="setting.html">Настройки</a></li>
+          <li><a href="pro-nas.html">О нас</a></li>
+          <li><a href="#">Помощь</a></li>
+        </ul>
+      </nav>
+  
+      <div style="margin-top:auto; padding-top:12px; border-top:1px solid var(--border);">
+        <a href="setting.html" class="btn btn--ghost" style="width:100%; display:inline-flex; justify-content:center">Настройки</a>
+      </div>
+    </aside>
+  
+    <!-- ...existing code... -->
+  <script src="scripts/main.js" defer></script>
+  
+
+</body>
+</html>

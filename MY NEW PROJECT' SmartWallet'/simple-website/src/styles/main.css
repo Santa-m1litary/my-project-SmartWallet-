@@ -122,3 +122,138 @@ input[type="text"], input[type="email"], select{ padding:9px 10px; border-radius
 /* Стили для лёгкой подсказки статуса */
 #status{ color:var(--muted); font-size:13px; min-width:120px; display:inline-block; padding-left:8px; }
 /* ...existing code... */
+
+/* Небольшие визуальные правки — не ломают структуру */
+.header__actions .btn{ gap:10px; padding:9px 12px; border-radius:10px; font-weight:600; }
+.header__actions .btn.btn--ghost{ background:transparent; border:1px solid var(--border); color:var(--fg); }
+
+.brand__logo{ width:48px; height:48px; border-radius:12px; font-size:18px; }
+
+/* Баланс: чуть крупнее, ровный межбуквенный интервал */
+.balance__amount{ font-size:34px; font-weight:800; letter-spacing:0.2px; line-height:1; }
+.balance__amount small{ color:var(--muted); font-weight:600; font-size:14px; }
+
+/* Ввод баланса — аккуратно вписан в дизайн */
+#balanceInput{ display:inline-block; padding:8px 10px; border-radius:8px; border:1px solid var(--border); background:#fff; color:var(--fg); }
+
+/* Кнопки: плавность и состояние фокуса */
+.btn{
+  transition: transform .14s ease, box-shadow .16s ease, background .12s ease, color .12s ease;
+}
+.btn:focus{ outline: 3px solid rgba(3,102,214,0.12); outline-offset:3px; }
+
+/* Primary button — более выразительный */
+.btn--primary{ box-shadow: 0 8px 24px rgba(3,102,214,0.08); }
+
+/* Виджеты: выравнивание по центру, аккуратный размер */
+.widget{ min-height:72px; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:14px; }
+
+/* Карточки — аккуратный hover без сдвига контента */
+.card{ transition: transform .18s ease, box-shadow .18s ease; will-change: transform, box-shadow; overflow:visible; }
+.card:hover{ transform: translateY(-6px); box-shadow: var(--shadow-strong); }
+
+/* Drawer overlay: тёмный + размытие для глубины */
+.drawer-overlay{
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background: rgba(7,10,20,0.36);
+}
+
+/* Drawer — чуть уже на маленьких экранах */
+@media (max-width:600px){
+  .drawer{ width: 280px; }
+  .brand__logo{ width:40px; height:40px; font-size:16px; }
+  .balance__amount{ font-size:26px; }
+}
+
+/* Скрыть визуальные артефакты при уменьшении масштаба */
+@media (max-width:420px){
+  .header__actions .btn{ padding:8px 10px; font-size:13px; }
+}
+
+/* Статус сообщений — лёгкий фон */
+#status{ background: rgba(15,23,36,0.03); padding:6px 8px; border-radius:8px; }
+/* ...existing code... */
+
+/* Специфические кнопки для основных действий — чёткая визуальная иерархия */
+.btn--txn{ /* Новая Транзакция — основной акцент */
+  background: linear-gradient(90deg,var(--accent-2),var(--accent-1));
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(3,102,214,0.12);
+}
+.btn--txn:hover{ transform: translateY(-4px); box-shadow: 0 18px 40px rgba(3,102,214,0.14); }
+
+/* Категории — нейтральный, лёгкий outline */
+.btn--category{
+  background: #fff;
+  color: var(--accent-1);
+  border: 1px dashed rgba(3,102,214,0.16);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.btn--category:hover{ background: rgba(3,102,214,0.04); }
+
+/* Отчёты — спокойный вторичный CTA */
+.btn--report{
+  background: linear-gradient(180deg, rgba(6,78,159,0.06), transparent);
+  color: var(--fg);
+  border: 1px solid rgba(15,23,36,0.06);
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+.btn--report:hover{ background: rgba(6,78,159,0.02); transform: translateY(-2px); }
+
+/* Малые значимые операции: Платежи/Переводы/История — иконочный вид */
+.btn--pay, .btn--transfer, .btn--history{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:8px 12px; border-radius:10px; border:1px solid var(--border); background:var(--btn-bg);
+  color:var(--fg); font-weight:600;
+}
+/* лёгкие иконки через псевдоэлемент (emoji fallback) */
+.btn--pay::before{ content: "💳"; font-size:16px; }
+.btn--transfer::before{ content: "🔁"; font-size:16px; }
+.btn--history::before{ content: "📜"; font-size:16px; }
+
+.btn--pay:hover, .btn--transfer:hover, .btn--history:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-strong);
+}
+
+/* компактные варианты (если нужны рядом в тулбаре) */
+.btn--compact{ padding:6px 10px; font-size:13px; border-radius:8px; }
+
+/* Адаптация под мобильные — большие тач-мишени */
+@media (max-width:520px){
+  .btn--txn{ width:100%; padding:12px; }
+  .btn--pay, .btn--transfer, .btn--history{ flex:1 1 auto; justify-content:center; }
+}
+
+/* ...existing code... *//* ...existing code... */
+/* Стили для блока быстрых действий в header — не ломают существующую верстку */
+.header{
+  display:flex;
+  align-items:center;
+  gap:16px;
+  justify-content:space-between;
+}
+.header__quick{ display:flex; align-items:center; gap:12px; margin-left:18px; }
+.header__quick .actions { display:flex; gap:10px; align-items:center; }
+.header__quick .quick-small { display:flex; gap:8px; align-items:center; }
+
+/* На маленьких экранах скрываем компактные кнопки и переносим основной actions вниз */
+@media (max-width:900px){
+  .header__quick { display:block; margin:10px 0 0 0; }
+  .header__quick .quick-small{ display:flex; gap:8px; margin-top:8px; }
+  .header{ flex-direction:column; align-items:flex-start; }
+}
+@media (max-width:520px){
+  .header__quick .actions .btn{ padding:8px 10px; font-size:13px; }
+  .header__quick .quick-small{ display:none; } /* скрыть мелкие иконки на узких экранах */
+}
+/* ...existing code...

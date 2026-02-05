@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Профіль — SmartWallet</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/profile.css">
+</head>
+<body>
+  <main class="container profile-page">
+    <header class="profile-header">
+      <h1>Профіль</h1>
+      <p class="helper">Перегляньте та змініть інформацію про свій профіль.</p>
+    </header>
+
+    <section class="profile-card card">
+      <div class="profile-grid">
+        <div class="profile-aside">
+          <div class="avatar-wrap">
+            <img id="avatarPreview" class="avatar" src="images/avatar-placeholder.png" alt="Аватар">
+            <label class="btn btn--ghost avatar-btn">
+              Змінити аватар
+              <input id="avatarInput" type="file" accept="image/*" hidden>
+            </label>
+            <div class="muted" style="margin-top:8px; font-size:13px;">Рекомендований розмір 200×200, JPG/PNG</div>
+          </div>
+        </div>
+
+        <form id="profileForm" class="profile-form" novalidate>
+          <div class="form-row">
+            <label for="username">Ім'я користувача</label>
+            <input type="text" id="username" name="username" placeholder="Введіть ім'я користувача">
+          </div>
+
+          <div class="form-row">
+            <label for="email">Електронна пошта</label>
+            <input type="email" id="email" name="email" placeholder="Введіть електронну пошту">
+          </div>
+
+          <div class="form-row">
+            <label for="password">Пароль</label>
+            <input type="password" id="password" name="password" placeholder="Введіть новий пароль">
+            <div class="helper muted">Мінімум 8 символів. Залиште пустим, щоб не змінювати.</div>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn btn--primary" id="saveProfile">Зберегти зміни</button>
+            <button type="button" class="btn" id="resetProfile">Скинути</button>
+            <div id="profileStatus" aria-live="polite" class="status"></div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="scripts/profile.js" defer></script>
+</body>
+</html>

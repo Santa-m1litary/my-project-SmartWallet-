@@ -1,0 +1,50 @@
+/* Профиль — отдельный чистый дизайн */
+.profile-page { padding-top: 12px; padding-bottom: 36px; }
+.profile-header { margin-bottom: 12px; }
+.profile-card { max-width: 980px; margin: 0 auto; }
+
+/* Сетка карточки профиля */
+.profile-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Блок аватара */
+.avatar-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.avatar {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  background: linear-gradient(180deg, #fff, #f7f9fc);
+}
+
+/* Кнопка смены аватара */
+.avatar-btn { display:inline-flex; align-items:center; justify-content:center; padding:8px 12px; border-radius:10px; font-size:14px; cursor:pointer; }
+
+/* Форма */
+.profile-form { display:flex; flex-direction:column; gap:12px; }
+.form-row { display:flex; flex-direction:column; gap:6px; }
+.form-row label { font-weight:600; font-size:14px; color:var(--fg); }
+.form-row input[type="text"], .form-row input[type="email"], .form-row input[type="password"] {
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background: #fff;
+  color: var(--fg);
+  font-size:14px;
+}
+
+/* Действия */
+.form-actions { display:flex; gap:10px; align-items:center; margin-top:8px; }
+.status { min-width:160px; color:var(--muted); font-size:13px; padding-left:6px; }
+
+/* Малые экраны */
+@media (max-width: 820px) {
+  .profile-grid { grid-template-columns: 1fr; }
+  .avatar { width: 128px; height: 128px; }
+}

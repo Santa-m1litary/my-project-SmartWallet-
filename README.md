@@ -1,1 +1,1 @@
-# MY-NEW-PROJECT-SmartWallet
+# MY-PROJECT-SmartWallet

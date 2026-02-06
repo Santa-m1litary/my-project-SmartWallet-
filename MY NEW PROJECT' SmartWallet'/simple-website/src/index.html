@@ -38,18 +38,27 @@
       <!-- Блок быстрых действий — добавлен перед основным меню -->
       <div class="header__quick">
         <div class="actions" aria-label="Быстрые действия">
-          <button class="btn btn--txn">Биржа</button>
-          <button class="btn btn--category">Крипта</button>
-          <button class="btn btn--report">Помошник</button>
+  <!-- заменяем кнопку -->
+        <div class="dropdown">
+          <button class="btn btn--txn dropbtn">Биржа</button>
+          <div class="dropdown-content">
+            <a href="https://www.binance.com/" target="_blank" >Binance</a>
+            <a href="https://www.coinbase.com/" target="_blank" >Coinbase</a>
+            <a href="https://www.kraken.com/" target="_blank" >Kraken</a>
+            <a href="https://www.bybit.com/" target="_blank" >Bybit</a>
+          </div>
+        </div>
+
+        <button class="btn btn--txn dropbtn">Помошник</button>
         </div>
 
         <div class="quick-small" style="display:flex;gap:8px;margin-left:12px;">
-          <button class="btn btn--report">Общение</button>
+          <button class="btn btn--txn dropbtn">Общение</button>
         </div>
       </div>
 
       <div class="header__actions">
-        <a href="profile.html" class="btn btn--ghost" data-i18n="menu_profile">Профиль</a>
+        <a href="profile.html" class="btn btn--txn dropbtn" data-i18n="menu_profile">Профиль</a>
         <button class="btn" id="actionBtn" aria-controls="menuDrawer" aria-expanded="false" data-i18n="btn_menu">Меню</button>
       </div>
     </header>
@@ -66,7 +75,7 @@
                 <div style="margin-top:6px; display:flex; gap:8px; align-items:center;">
                   <input id="balanceInput" type="number" step="0.01" min="0"
                          style="display:none; padding:6px 8px; border:1px solid var(--border); border-radius:6px; background:var(--surface); color:var(--fg); width:140px;">
-                  <button id="editBalanceBtn" class="btn btn--ghost">Изменить</button>
+                  <button id="editBalanceBtn" class="btn btn--txn">Изменить</button>
                 </div>
               </div>
 

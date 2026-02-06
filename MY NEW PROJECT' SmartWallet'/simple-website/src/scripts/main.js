@@ -155,3 +155,18 @@
   window.SWSite = { refreshUI: () => { initRevealAndCounters(); initUI(); }, applyI18n };
 
 })();
+function initUI(){
+  
+
+  // Quick action: открыть официальный сайт биржи (Binance) в новой вкладке
+  const exchangeBtn = Array.from(document.querySelectorAll('.btn'))
+    .find(el => el && el.textContent && el.textContent.trim() === 'Биржа');
+  if (exchangeBtn) {
+    exchangeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.open('https://www.binance.com/', '_blank', 'noopener,noreferrer');
+    });
+  }
+
+  // ...existing code...
+}
